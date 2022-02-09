@@ -10,5 +10,4 @@ class BudgetcontrolapiApplicationTests {
     void contextLoads() {
         BudgetcontrolapiApplication.main(new String[]{});
     }
-
 }

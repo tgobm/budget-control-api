@@ -6,8 +6,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 @SpringBootApplication
 public class BudgetcontrolapiApplication {
 
-	public static void main(String[] args) {
-		SpringApplication.run(BudgetcontrolapiApplication.class, args);
-	}
-
+    public static void main(String[] args) {
+        SpringApplication.run(BudgetcontrolapiApplication.class, args);
+    }
 }
