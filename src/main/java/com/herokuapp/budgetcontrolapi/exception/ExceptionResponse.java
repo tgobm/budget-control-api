@@ -10,8 +10,12 @@ import java.time.LocalDateTime;
 public class ExceptionResponse {
 
     protected LocalDateTime timeStamp;
+
     protected int status;
+
     protected String message;
+
     protected String path;
+
     protected String details;
 }

@@ -13,5 +13,4 @@ public interface ExpenseService {
     Expense getExpense(Long id);
 
     List<Expense> getExpenses();
-
 }

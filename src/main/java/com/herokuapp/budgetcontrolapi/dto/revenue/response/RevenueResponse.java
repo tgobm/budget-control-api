@@ -1,4 +1,4 @@
-package com.herokuapp.budgetcontrolapi.dto.expense.response;
+package com.herokuapp.budgetcontrolapi.dto.revenue.response;
 
 import lombok.Data;
 
@@ -7,13 +7,10 @@ import java.math.BigDecimal;
 import java.util.Date;
 
 @Data
-public class ExpenseResponse implements Serializable {
+public class RevenueResponse implements Serializable {
 
     private Long id;
-
     private String description;
-
     private BigDecimal value;
-
     private Date date;
 }

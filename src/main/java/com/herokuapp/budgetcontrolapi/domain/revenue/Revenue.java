@@ -1,4 +1,4 @@
-package com.herokuapp.budgetcontrolapi.domain.expense;
+package com.herokuapp.budgetcontrolapi.domain.revenue;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -20,8 +20,8 @@ import java.util.Date;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-@Table(name = "expense")
-public class Expense {
+@Table(name = "revenue")
+public class Revenue {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
