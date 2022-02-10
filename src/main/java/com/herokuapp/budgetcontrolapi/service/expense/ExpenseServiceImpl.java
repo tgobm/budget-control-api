@@ -8,14 +8,14 @@ import com.herokuapp.budgetcontrolapi.exception.ResourceNotFoundException;
 import com.herokuapp.budgetcontrolapi.repository.expense.ExpenseRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-import org.springframework.validation.annotation.Validated;
 
 import javax.transaction.Transactional;
+import javax.validation.Valid;
 import java.util.List;
 
 @Service
-@Transactional
 @RequiredArgsConstructor
+@Transactional(rollbackOn = Exception.class)
 public class ExpenseServiceImpl implements ExpenseService {
 
     private final ExpenseMapper expenseMapper;
@@ -23,7 +23,7 @@ public class ExpenseServiceImpl implements ExpenseService {
     private final ExpenseRepository expenseRepository;
 
     @Override
-    public ExpenseResponse createExpense(@Validated ExpenseRequest request) {
+    public ExpenseResponse createExpense(@Valid ExpenseRequest request) {
         Expense entity = expenseMapper.fromRequestToEntity(request);
         expenseRepository.save(entity);
         return expenseMapper.fromEntityToResponse(entity);

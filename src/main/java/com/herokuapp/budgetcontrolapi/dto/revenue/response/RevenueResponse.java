@@ -10,7 +10,10 @@ import java.util.Date;
 public class RevenueResponse implements Serializable {
 
     private Long id;
+
     private String description;
+
     private BigDecimal value;
+
     private Date date;
 }

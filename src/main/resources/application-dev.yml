@@ -1,8 +1,8 @@
 spring:
   datasource:
-    url: jdbc:postgresql://ec2-3-225-30-189.compute-1.amazonaws.com:5432/dbvb7uecei9a7h
-    username: dhztsgsfnuveyc
-    password: b9cd17e08cc7a464c7b95d376215680f0d17dae8110fc632d1a50a6733f6801b
+    url: jdbc:postgresql://ec2-54-208-139-247.compute-1.amazonaws.com:5432/d9jifq15g5cj1u
+    username: iwufelfymlzgau
+    password: 0b4b796c43926f48275d964c14446707dfba0a039bbccca070d45c8642f6c7d4
   jpa:
     hibernate:
       ddl-auto: update
