@@ -35,7 +35,6 @@ public class Expense {
 
     @Override
     public String toString() {
-        return ReflectionToStringBuilder
-                .toString(this, ToStringStyle.JSON_STYLE, true, true);
+        return ReflectionToStringBuilder.toString(this, ToStringStyle.JSON_STYLE, true, true);
     }
 }
