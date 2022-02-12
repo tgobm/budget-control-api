@@ -1,6 +1,5 @@
 package com.herokuapp.budgetcontrolapi.resource.expense;
 
-import com.herokuapp.budgetcontrolapi.domain.expense.Expense;
 import com.herokuapp.budgetcontrolapi.dto.expense.request.ExpenseRequest;
 import com.herokuapp.budgetcontrolapi.dto.expense.response.ExpenseResponse;
 import com.herokuapp.budgetcontrolapi.service.expense.ExpenseService;
@@ -34,19 +33,18 @@ public class ExpenseResource {
     }
 
     @GetMapping
-    public ResponseEntity<List<ExpenseResponse>> getExpenses() {
+    public ResponseEntity<List<ExpenseResponse>> getAllExpenses() {
         return ResponseEntity.ok(expenseService.getAllExpenses());
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Expense> getExpense(@PathVariable("id") Long id) {
+    public ResponseEntity<ExpenseResponse> getExpense(@PathVariable("id") Long id) {
         return ResponseEntity.ok(expenseService.getExpense(id));
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Expense> updateExpense(@Valid @RequestBody ExpenseRequest requestDetails, @PathVariable("id") Long id) {
-        Expense entity = expenseService.updateExpense(requestDetails, id);
-        return new ResponseEntity<>(entity, HttpStatus.OK);
+    public ResponseEntity<ExpenseResponse> updateExpense(@Valid @RequestBody ExpenseRequest requestDetails, @PathVariable("id") Long id) {
+        return ResponseEntity.ok(expenseService.updateExpense(requestDetails, id));
     }
 
     @DeleteMapping("/{id}")

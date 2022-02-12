@@ -32,9 +32,10 @@ public class ExpenseServiceImpl implements ExpenseService {
     }
 
     @Override
-    public Expense getExpense(Long id) {
-        return expenseRepository.findById(id) //
+    public ExpenseResponse getExpense(Long id) {
+        Expense entity = expenseRepository.findById(id) //
                 .orElseThrow(() -> new ResourceNotFoundException(RESOURCE_NOT_FOUND.getMessage()));
+        return expenseMapper.fromEntityToResponse(entity);
     }
 
     @Override
@@ -46,7 +47,7 @@ public class ExpenseServiceImpl implements ExpenseService {
     }
 
     @Override
-    public Expense updateExpense(ExpenseRequest requestDetails, Long id) {
+    public ExpenseResponse updateExpense(ExpenseRequest requestDetails, Long id) {
         Expense returnedEntity = expenseRepository.findById(id) //
                 .orElseThrow(() -> new ResourceNotFoundException(RESOURCE_NOT_FOUND.getMessage()));
 
@@ -54,7 +55,8 @@ public class ExpenseServiceImpl implements ExpenseService {
         returnedEntity.setValue(requestDetails.getValue());
         returnedEntity.setDate(requestDetails.getDate());
 
-        return expenseRepository.save(returnedEntity);
+        expenseRepository.save(returnedEntity);
+        return expenseMapper.fromEntityToResponse(returnedEntity);
     }
 
     @Override

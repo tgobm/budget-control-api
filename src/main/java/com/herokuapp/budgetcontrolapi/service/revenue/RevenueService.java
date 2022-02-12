@@ -1,6 +1,5 @@
 package com.herokuapp.budgetcontrolapi.service.revenue;
 
-import com.herokuapp.budgetcontrolapi.domain.revenue.Revenue;
 import com.herokuapp.budgetcontrolapi.dto.revenue.request.RevenueRequest;
 import com.herokuapp.budgetcontrolapi.dto.revenue.response.RevenueResponse;
 
@@ -10,11 +9,11 @@ public interface RevenueService {
 
     RevenueResponse createRevenue(RevenueRequest request);
 
-    Revenue getRevenue(Long id);
+    RevenueResponse getRevenue(Long id);
 
-    List<Revenue> getAllRevenues();
+    List<RevenueResponse> getAllRevenues();
 
-    Revenue updateRevenue(RevenueRequest requestDetails, Long id);
+    RevenueResponse updateRevenue(RevenueRequest requestDetails, Long id);
 
     void deleteRevenue(Long id);
 }

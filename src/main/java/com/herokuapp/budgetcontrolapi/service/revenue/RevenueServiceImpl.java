@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.validation.annotation.Validated;
 
 import javax.transaction.Transactional;
+import java.util.ArrayList;
 import java.util.List;
 
 import static com.herokuapp.budgetcontrolapi.util.ErrorMessage.RESOURCE_NOT_FOUND;
@@ -32,26 +33,31 @@ public class RevenueServiceImpl implements RevenueService {
     }
 
     @Override
-    public Revenue getRevenue(Long id) {
-        return revenueRepository.findById(id) //
+    public RevenueResponse getRevenue(Long id) {
+        Revenue entity = revenueRepository.findById(id) //
                 .orElseThrow(() -> new ResourceNotFoundException(RESOURCE_NOT_FOUND.getMessage()));
+        return revenueMapper.fromEntityToResponse(entity);
     }
 
     @Override
-    public List<Revenue> getAllRevenues() {
-        return revenueRepository.findAll();
+    public List<RevenueResponse> getAllRevenues() {
+        List<RevenueResponse> responseList = new ArrayList<>();
+        List<Revenue> entities = revenueRepository.findAll();
+        entities.forEach(entity -> responseList.add(revenueMapper.fromEntityToResponse(entity)));
+        return responseList;
     }
 
     @Override
-    public Revenue updateRevenue(RevenueRequest request, Long id) {
+    public RevenueResponse updateRevenue(RevenueRequest request, Long id) {
         Revenue returnedEntity = revenueRepository.findById(id) //
                 .orElseThrow(() -> new ResourceNotFoundException(RESOURCE_NOT_FOUND.getMessage()));
 
         returnedEntity.setDescription(request.getDescription());
         returnedEntity.setValue(request.getValue());
         returnedEntity.setDate(request.getDate());
-
-        return revenueRepository.save(returnedEntity);
+        
+        revenueRepository.save(returnedEntity);
+        return revenueMapper.fromEntityToResponse(returnedEntity);
     }
 
     @Override
