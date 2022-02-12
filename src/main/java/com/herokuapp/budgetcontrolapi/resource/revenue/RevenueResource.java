@@ -1,6 +1,5 @@
 package com.herokuapp.budgetcontrolapi.resource.revenue;
 
-import com.herokuapp.budgetcontrolapi.domain.revenue.Revenue;
 import com.herokuapp.budgetcontrolapi.dto.revenue.request.RevenueRequest;
 import com.herokuapp.budgetcontrolapi.dto.revenue.response.RevenueResponse;
 import com.herokuapp.budgetcontrolapi.service.revenue.RevenueService;
@@ -34,19 +33,18 @@ public class RevenueResource {
     }
 
     @GetMapping
-    public ResponseEntity<List<Revenue>> getRevenues() {
+    public ResponseEntity<List<RevenueResponse>> getAllRevenues() {
         return ResponseEntity.ok(revenueService.getAllRevenues());
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Revenue> getRevenue(@PathVariable("id") Long id) {
+    public ResponseEntity<RevenueResponse> getRevenue(@PathVariable("id") Long id) {
         return ResponseEntity.ok(revenueService.getRevenue(id));
     }
 
     @PutMapping("{id}")
-    public ResponseEntity<Revenue> updateRevenue(@Valid @RequestBody RevenueRequest requestDetails, @PathVariable("id") Long id) {
-        Revenue entity = revenueService.updateRevenue(requestDetails, id);
-        return new ResponseEntity<>(entity, HttpStatus.OK);
+    public ResponseEntity<RevenueResponse> updateRevenue(@Valid @RequestBody RevenueRequest requestDetails, @PathVariable("id") Long id) {
+        return ResponseEntity.ok(revenueService.updateRevenue(requestDetails, id));
     }
 
     @DeleteMapping("/{id}")

@@ -10,11 +10,11 @@ public interface ExpenseService {
 
     ExpenseResponse createExpense(ExpenseRequest request);
 
-    Expense getExpense(Long id);
+    ExpenseResponse getExpense(Long id);
 
     List<ExpenseResponse> getAllExpenses();
 
-    Expense updateExpense(ExpenseRequest requestDetails, Long id);
+    ExpenseResponse updateExpense(ExpenseRequest requestDetails, Long id);
 
     void deleteExpense(Long id);
 }
