@@ -45,7 +45,7 @@ public class RestExceptionHandler extends ResponseEntityExceptionHandler {
 
         fieldErrors.forEach(error -> listFieldErrors.put(error.getField(), error.getDefaultMessage()));
 
-        return new ResponseEntity<>(ValidationExceptionResponse.builder()
+        return new ResponseEntity<>(ValidationExceptionResponse.builder() //
                 .timeStamp(LocalDateTime.now()) //
                 .status(status.value()) //
                 .message(FIELD_VALIDATION_FAILED.getMessage()) //
