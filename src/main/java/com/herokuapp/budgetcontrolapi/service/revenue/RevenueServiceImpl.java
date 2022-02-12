@@ -13,6 +13,8 @@ import org.springframework.validation.annotation.Validated;
 import javax.transaction.Transactional;
 import java.util.List;
 
+import static com.herokuapp.budgetcontrolapi.util.ErrorMessage.RESOURCE_NOT_FOUND;
+
 @Service
 @RequiredArgsConstructor
 @Transactional(rollbackOn = Exception.class)
@@ -31,11 +33,31 @@ public class RevenueServiceImpl implements RevenueService {
 
     @Override
     public Revenue getRevenue(Long id) {
-        return revenueRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Revenue not found!"));
+        return revenueRepository.findById(id) //
+                .orElseThrow(() -> new ResourceNotFoundException(RESOURCE_NOT_FOUND.getMessage()));
     }
 
     @Override
-    public List<Revenue> getRevenues() {
+    public List<Revenue> getAllRevenues() {
         return revenueRepository.findAll();
+    }
+
+    @Override
+    public Revenue updateRevenue(RevenueRequest request, Long id) {
+        Revenue returnedEntity = revenueRepository.findById(id) //
+                .orElseThrow(() -> new ResourceNotFoundException(RESOURCE_NOT_FOUND.getMessage()));
+
+        returnedEntity.setDescription(request.getDescription());
+        returnedEntity.setValue(request.getValue());
+        returnedEntity.setDate(request.getDate());
+
+        return revenueRepository.save(returnedEntity);
+    }
+
+    @Override
+    public void deleteRevenue(Long id) {
+        Revenue entity = revenueRepository.findById(id) //
+                .orElseThrow(() -> new ResourceNotFoundException(RESOURCE_NOT_FOUND.getMessage()));
+        revenueRepository.delete(entity);
     }
 }

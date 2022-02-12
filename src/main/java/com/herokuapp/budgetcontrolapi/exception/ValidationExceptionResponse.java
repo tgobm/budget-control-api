@@ -8,7 +8,7 @@ import java.util.Map;
 
 @SuperBuilder
 @Getter
-@EqualsAndHashCode
+@EqualsAndHashCode(callSuper = false)
 public class ValidationExceptionResponse extends ExceptionResponse {
 
     private Map<String, String> fieldErrors;

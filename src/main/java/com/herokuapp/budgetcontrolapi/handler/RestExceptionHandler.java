@@ -20,6 +20,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import static com.herokuapp.budgetcontrolapi.util.ErrorMessage.FIELD_VALIDATION_FAILED;
 import static org.springframework.http.HttpStatus.NOT_FOUND;
 
 @RestControllerAdvice
@@ -42,14 +43,12 @@ public class RestExceptionHandler extends ResponseEntityExceptionHandler {
         Map<String, String> listFieldErrors = new HashMap<>();
         List<FieldError> fieldErrors = ex.getBindingResult().getFieldErrors();
 
-        fieldErrors.forEach(error -> {
-            listFieldErrors.put(error.getField(), error.getDefaultMessage());
-        });
+        fieldErrors.forEach(error -> listFieldErrors.put(error.getField(), error.getDefaultMessage()));
 
         return new ResponseEntity<>(ValidationExceptionResponse.builder()
                 .timeStamp(LocalDateTime.now()) //
                 .status(status.value()) //
-                .message("Failed to validate entered values") //
+                .message(FIELD_VALIDATION_FAILED.getMessage()) //
                 .path(((ServletWebRequest) request).getRequest().getRequestURI()) //
                 .details(ex.getClass().getName()) //
                 .fieldErrors(listFieldErrors)

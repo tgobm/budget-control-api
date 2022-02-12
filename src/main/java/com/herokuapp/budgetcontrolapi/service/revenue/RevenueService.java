@@ -12,5 +12,9 @@ public interface RevenueService {
 
     Revenue getRevenue(Long id);
 
-    List<Revenue> getRevenues();
+    List<Revenue> getAllRevenues();
+
+    Revenue updateRevenue(RevenueRequest requestDetails, Long id);
+
+    void deleteRevenue(Long id);
 }
