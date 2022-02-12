@@ -10,8 +10,10 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
-import javax.validation.Valid;
+import java.util.ArrayList;
 import java.util.List;
+
+import static com.herokuapp.budgetcontrolapi.util.ErrorMessage.RESOURCE_NOT_FOUND;
 
 @Service
 @RequiredArgsConstructor
@@ -23,7 +25,7 @@ public class ExpenseServiceImpl implements ExpenseService {
     private final ExpenseRepository expenseRepository;
 
     @Override
-    public ExpenseResponse createExpense(@Valid ExpenseRequest request) {
+    public ExpenseResponse createExpense(ExpenseRequest request) {
         Expense entity = expenseMapper.fromRequestToEntity(request);
         expenseRepository.save(entity);
         return expenseMapper.fromEntityToResponse(entity);
@@ -31,11 +33,34 @@ public class ExpenseServiceImpl implements ExpenseService {
 
     @Override
     public Expense getExpense(Long id) {
-        return expenseRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Expense not found!"));
+        return expenseRepository.findById(id) //
+                .orElseThrow(() -> new ResourceNotFoundException(RESOURCE_NOT_FOUND.getMessage()));
     }
 
     @Override
-    public List<Expense> getExpenses() {
-        return expenseRepository.findAll();
+    public List<ExpenseResponse> getAllExpenses() {
+        List<ExpenseResponse> responseList = new ArrayList<>();
+        List<Expense> entities = expenseRepository.findAll();
+        entities.forEach(entity -> responseList.add(expenseMapper.fromEntityToResponse(entity)));
+        return responseList;
+    }
+
+    @Override
+    public Expense updateExpense(ExpenseRequest requestDetails, Long id) {
+        Expense returnedEntity = expenseRepository.findById(id) //
+                .orElseThrow(() -> new ResourceNotFoundException(RESOURCE_NOT_FOUND.getMessage()));
+
+        returnedEntity.setDescription(requestDetails.getDescription());
+        returnedEntity.setValue(requestDetails.getValue());
+        returnedEntity.setDate(requestDetails.getDate());
+
+        return expenseRepository.save(returnedEntity);
+    }
+
+    @Override
+    public void deleteExpense(Long id) {
+        Expense entity = expenseRepository.findById(id) //
+                .orElseThrow(() -> new ResourceNotFoundException(RESOURCE_NOT_FOUND.getMessage()));
+        expenseRepository.delete(entity);
     }
 }

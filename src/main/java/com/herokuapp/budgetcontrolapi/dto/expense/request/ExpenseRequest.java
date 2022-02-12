@@ -11,12 +11,12 @@ import java.util.Date;
 @Data
 public class ExpenseRequest implements Serializable {
 
-    @NotBlank(message = "field does not accept null or empty value")
+    @NotBlank
     private String description;
 
-    @NotNull(message = "field cannot be null")
+    @NotNull
     private BigDecimal value;
 
-    @NotNull(message = "field cannot be null")
+    @NotNull
     private Date date;
 }
