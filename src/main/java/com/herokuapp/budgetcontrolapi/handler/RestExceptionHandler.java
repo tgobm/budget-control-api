@@ -1,5 +1,6 @@
 package com.herokuapp.budgetcontrolapi.handler;
 
+import com.herokuapp.budgetcontrolapi.exception.ExceptionResponse;
 import com.herokuapp.budgetcontrolapi.exception.ResourceNotFoundException;
 import com.herokuapp.budgetcontrolapi.exception.ResourceNotFoundExceptionResponse;
 import com.herokuapp.budgetcontrolapi.exception.ValidationExceptionResponse;
@@ -8,8 +9,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
+import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
-import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.context.request.ServletWebRequest;
 import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
@@ -23,7 +24,7 @@ import java.util.Map;
 import static com.herokuapp.budgetcontrolapi.util.ErrorMessage.FIELD_VALIDATION_FAILED;
 import static org.springframework.http.HttpStatus.NOT_FOUND;
 
-@RestControllerAdvice
+@ControllerAdvice
 public class RestExceptionHandler extends ResponseEntityExceptionHandler {
 
     @ExceptionHandler(ResourceNotFoundException.class)
@@ -53,5 +54,16 @@ public class RestExceptionHandler extends ResponseEntityExceptionHandler {
                 .details(ex.getClass().getName()) //
                 .fieldErrors(listFieldErrors)
                 .build(), status);
+    }
+
+    @Override
+    protected ResponseEntity<Object> handleExceptionInternal(Exception ex, Object body, HttpHeaders headers, HttpStatus status, WebRequest request) {
+        return new ResponseEntity<>(ExceptionResponse.builder() //
+                .timeStamp(LocalDateTime.now()) //
+                .status(status.value()) //
+                .message(ex.getMessage()) //
+                .path(((ServletWebRequest) request).getRequest().getRequestURI()) //
+                .details(ex.getClass().getName()) //
+                .build(), headers, status);
     }
 }

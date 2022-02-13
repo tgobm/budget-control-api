@@ -1,10 +1,13 @@
 package com.herokuapp.budgetcontrolapi.dto.expense.response;
 
+import com.herokuapp.budgetcontrolapi.domain.expense.Category;
 import lombok.Data;
 
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import java.io.Serializable;
 import java.math.BigDecimal;
-import java.util.Date;
+import java.time.LocalDate;
 
 @Data
 public class ExpenseResponse implements Serializable {
@@ -15,5 +18,8 @@ public class ExpenseResponse implements Serializable {
 
     private BigDecimal value;
 
-    private Date date;
+    private LocalDate date;
+
+    @Enumerated(EnumType.STRING)
+    private Category category;
 }

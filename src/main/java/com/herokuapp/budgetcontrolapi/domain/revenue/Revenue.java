@@ -11,8 +11,10 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 import java.math.BigDecimal;
-import java.util.Date;
+import java.time.LocalDate;
 
 @Entity
 @Data
@@ -29,7 +31,7 @@ public class Revenue {
 
     private BigDecimal value;
 
-    private Date date;
+    private LocalDate date;
 
     @Override
     public String toString() {

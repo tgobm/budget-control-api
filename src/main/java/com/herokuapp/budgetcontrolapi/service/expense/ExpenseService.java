@@ -1,6 +1,5 @@
 package com.herokuapp.budgetcontrolapi.service.expense;
 
-import com.herokuapp.budgetcontrolapi.domain.expense.Expense;
 import com.herokuapp.budgetcontrolapi.dto.expense.request.ExpenseRequest;
 import com.herokuapp.budgetcontrolapi.dto.expense.response.ExpenseResponse;
 
@@ -12,7 +11,9 @@ public interface ExpenseService {
 
     ExpenseResponse getExpense(Long id);
 
-    List<ExpenseResponse> getAllExpenses();
+    List<ExpenseResponse> getAllExpenseByDescription(String description);
+
+    List<ExpenseResponse> getAllExpenseByYearMonth(Long year, Long month);
 
     ExpenseResponse updateExpense(ExpenseRequest requestDetails, Long id);
 

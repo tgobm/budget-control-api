@@ -7,12 +7,14 @@ import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 import java.math.BigDecimal;
-import java.util.Date;
+import java.time.LocalDate;
 
 @Entity
 @Data
@@ -29,7 +31,10 @@ public class Expense {
 
     private BigDecimal value;
 
-    private Date date;
+    private LocalDate date;
+
+    @Enumerated(EnumType.STRING)
+    private Category category;
 
     @Override
     public String toString() {

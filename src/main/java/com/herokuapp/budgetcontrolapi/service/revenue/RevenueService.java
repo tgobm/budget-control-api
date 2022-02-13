@@ -11,7 +11,9 @@ public interface RevenueService {
 
     RevenueResponse getRevenue(Long id);
 
-    List<RevenueResponse> getAllRevenues();
+    List<RevenueResponse> getAllRevenueByDescription(String description);
+
+    List<RevenueResponse> getAllRevenueByYearMonth(Long year, Long month);
 
     RevenueResponse updateRevenue(RevenueRequest requestDetails, Long id);
 

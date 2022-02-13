@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.validation.Valid;
@@ -32,15 +33,17 @@ public class RevenueResource {
         return new ResponseEntity<>(revenueService.createRevenue(revenue), HttpStatus.CREATED);
     }
 
-    @GetMapping
-    public ResponseEntity<List<RevenueResponse>> getAllRevenues() {
-        return ResponseEntity.ok(revenueService.getAllRevenues());
+    @GetMapping()
+    public ResponseEntity<List<RevenueResponse>> getAllRevenueByDescription(@RequestParam String description) {
+        return ResponseEntity.ok(revenueService.getAllRevenueByDescription(description));
     }
 
     @GetMapping("/{id}")
     public ResponseEntity<RevenueResponse> getRevenue(@PathVariable("id") Long id) {
         return ResponseEntity.ok(revenueService.getRevenue(id));
     }
+
+
 
     @PutMapping("{id}")
     public ResponseEntity<RevenueResponse> updateRevenue(@Valid @RequestBody RevenueRequest requestDetails, @PathVariable("id") Long id) {

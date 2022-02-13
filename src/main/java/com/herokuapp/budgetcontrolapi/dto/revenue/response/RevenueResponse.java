@@ -4,7 +4,7 @@ import lombok.Data;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
-import java.util.Date;
+import java.time.LocalDate;
 
 @Data
 public class RevenueResponse implements Serializable {
@@ -15,5 +15,5 @@ public class RevenueResponse implements Serializable {
 
     private BigDecimal value;
 
-    private Date date;
+    private LocalDate date;
 }

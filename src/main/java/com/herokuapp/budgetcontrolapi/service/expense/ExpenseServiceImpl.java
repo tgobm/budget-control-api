@@ -1,5 +1,6 @@
 package com.herokuapp.budgetcontrolapi.service.expense;
 
+import com.herokuapp.budgetcontrolapi.domain.expense.Category;
 import com.herokuapp.budgetcontrolapi.domain.expense.Expense;
 import com.herokuapp.budgetcontrolapi.dto.expense.mapper.ExpenseMapper;
 import com.herokuapp.budgetcontrolapi.dto.expense.request.ExpenseRequest;
@@ -10,8 +11,11 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.time.YearMonth;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
+import java.util.stream.Collectors;
 
 import static com.herokuapp.budgetcontrolapi.util.ErrorMessage.RESOURCE_NOT_FOUND;
 
@@ -26,6 +30,10 @@ public class ExpenseServiceImpl implements ExpenseService {
 
     @Override
     public ExpenseResponse createExpense(ExpenseRequest request) {
+
+        Category category = Objects.isNull(request.getCategory()) ? Category.OTHERS : request.getCategory();
+        request.setCategory(category);
+
         Expense entity = expenseMapper.fromRequestToEntity(request);
         expenseRepository.save(entity);
         return expenseMapper.fromEntityToResponse(entity);
@@ -39,9 +47,25 @@ public class ExpenseServiceImpl implements ExpenseService {
     }
 
     @Override
-    public List<ExpenseResponse> getAllExpenses() {
+    public List<ExpenseResponse> getAllExpenseByDescription(String description) {
         List<ExpenseResponse> responseList = new ArrayList<>();
-        List<Expense> entities = expenseRepository.findAll();
+        List<Expense> entities = expenseRepository.findAll()//
+                .stream() //
+                .filter(expense -> Objects.equals(expense.getDescription(), description)) //
+                .collect(Collectors.toList());
+
+        entities.forEach(entity -> responseList.add(expenseMapper.fromEntityToResponse(entity)));
+        return responseList;
+    }
+
+    @Override
+    public List<ExpenseResponse> getAllExpenseByYearMonth(Long year, Long month) {
+        List<ExpenseResponse> responseList = new ArrayList<>();
+        List<Expense> entities = expenseRepository.findAll() //
+                .stream() //
+                .filter(expense -> Objects.equals(YearMonth.from(expense.getDate()), YearMonth.of(year.intValue(), month.intValue()))
+                ).collect(Collectors.toList());
+
         entities.forEach(entity -> responseList.add(expenseMapper.fromEntityToResponse(entity)));
         return responseList;
     }

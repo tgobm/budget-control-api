@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.validation.Valid;
@@ -33,13 +34,18 @@ public class ExpenseResource {
     }
 
     @GetMapping
-    public ResponseEntity<List<ExpenseResponse>> getAllExpenses() {
-        return ResponseEntity.ok(expenseService.getAllExpenses());
+    public ResponseEntity<List<ExpenseResponse>> getAllExpenseByDescription(@RequestParam("description") String description) {
+        return ResponseEntity.ok(expenseService.getAllExpenseByDescription(description));
     }
 
     @GetMapping("/{id}")
     public ResponseEntity<ExpenseResponse> getExpense(@PathVariable("id") Long id) {
         return ResponseEntity.ok(expenseService.getExpense(id));
+    }
+
+    @GetMapping("/{year}/{month}")
+    public ResponseEntity<List<ExpenseResponse>> getAllExpenseByYearMonth(@PathVariable("year") Long year, @PathVariable("month") Long month) {
+        return ResponseEntity.ok(expenseService.getAllExpenseByYearMonth(year, month));
     }
 
     @PutMapping("/{id}")

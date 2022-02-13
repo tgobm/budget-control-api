@@ -11,8 +11,11 @@ import org.springframework.stereotype.Service;
 import org.springframework.validation.annotation.Validated;
 
 import javax.transaction.Transactional;
+import java.time.YearMonth;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
+import java.util.stream.Collectors;
 
 import static com.herokuapp.budgetcontrolapi.util.ErrorMessage.RESOURCE_NOT_FOUND;
 
@@ -40,9 +43,23 @@ public class RevenueServiceImpl implements RevenueService {
     }
 
     @Override
-    public List<RevenueResponse> getAllRevenues() {
+    public List<RevenueResponse> getAllRevenueByDescription(String description) {
         List<RevenueResponse> responseList = new ArrayList<>();
-        List<Revenue> entities = revenueRepository.findAll();
+        List<Revenue> entities = revenueRepository.findAll()//
+                .stream() //
+                .filter(revenue -> Objects.equals(revenue.getDescription(), description)) //
+                .collect(Collectors.toList());
+        entities.forEach(entity -> responseList.add(revenueMapper.fromEntityToResponse(entity)));
+        return responseList;
+    }
+
+    @Override
+    public List<RevenueResponse> getAllRevenueByYearMonth(Long year, Long month) {
+        List<RevenueResponse> responseList = new ArrayList<>();
+        List<Revenue> entities = revenueRepository.findAll()//
+                .stream() //
+                .filter(revenue -> Objects.equals(YearMonth.from(revenue.getDate()), YearMonth.of(year.intValue(), month.intValue()))) //
+                .collect(Collectors.toList());
         entities.forEach(entity -> responseList.add(revenueMapper.fromEntityToResponse(entity)));
         return responseList;
     }
@@ -55,7 +72,7 @@ public class RevenueServiceImpl implements RevenueService {
         returnedEntity.setDescription(request.getDescription());
         returnedEntity.setValue(request.getValue());
         returnedEntity.setDate(request.getDate());
-        
+
         revenueRepository.save(returnedEntity);
         return revenueMapper.fromEntityToResponse(returnedEntity);
     }

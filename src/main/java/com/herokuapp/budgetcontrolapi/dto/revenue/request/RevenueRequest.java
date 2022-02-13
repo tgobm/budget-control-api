@@ -6,7 +6,7 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 import java.math.BigDecimal;
-import java.util.Date;
+import java.time.LocalDate;
 
 @Data
 public class RevenueRequest implements Serializable {
@@ -18,5 +18,5 @@ public class RevenueRequest implements Serializable {
     private BigDecimal value;
 
     @NotNull
-    private Date date;
+    private LocalDate date;
 }
