@@ -3,7 +3,7 @@ package com.herokuapp.budgetcontrolapi.service.summary;
 import com.herokuapp.budgetcontrolapi.domain.expense.Category;
 import com.herokuapp.budgetcontrolapi.dto.expense.response.ExpenseResponse;
 import com.herokuapp.budgetcontrolapi.dto.revenue.response.RevenueResponse;
-import com.herokuapp.budgetcontrolapi.dto.summary.SummaryResponse;
+import com.herokuapp.budgetcontrolapi.dto.summary.response.SummaryResponse;
 import com.herokuapp.budgetcontrolapi.service.expense.ExpenseService;
 import com.herokuapp.budgetcontrolapi.service.revenue.RevenueService;
 import lombok.RequiredArgsConstructor;
@@ -25,7 +25,7 @@ public class SummaryServiceImpl implements SummaryService {
     private final ExpenseService expenseService;
 
     @Override
-    public SummaryResponse summaryByMonth(Long year, Long month) {
+    public SummaryResponse summaryByYearMonth(Long year, Long month) {
 
         List<RevenueResponse> revenueResponses = revenueService.getAllRevenueByYearMonth(year, month);
         List<ExpenseResponse> expenseResponses = expenseService.getAllExpenseByYearMonth(year, month);
@@ -41,11 +41,11 @@ public class SummaryServiceImpl implements SummaryService {
         Map<Category, BigDecimal> sumByCategory = expenseResponses.stream()
                 .collect(Collectors.toMap(ExpenseResponse::getCategory, ExpenseResponse::getValue, BigDecimal::add));
 
-        return SummaryResponse.builder()
-                .sumRevenueMonth(sumRevenueMonth)
-                .sumExpenseMonth(sumExpenseMonth)
-                .balanceByMonth(balanceByMonth)
-                .sumByCategory(sumByCategory)
+        return SummaryResponse.builder() //
+                .sumRevenueMonth(sumRevenueMonth) //
+                .sumExpenseMonth(sumExpenseMonth) //
+                .balanceByMonth(balanceByMonth) //
+                .sumByCategory(sumByCategory) //
                 .build();
     }
 }

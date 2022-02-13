@@ -1,6 +1,6 @@
 package com.herokuapp.budgetcontrolapi.resource.summary;
 
-import com.herokuapp.budgetcontrolapi.dto.summary.SummaryResponse;
+import com.herokuapp.budgetcontrolapi.dto.summary.response.SummaryResponse;
 import com.herokuapp.budgetcontrolapi.service.summary.SummaryService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -19,7 +19,7 @@ public class SummaryResource {
     private final SummaryService summaryService;
 
     @GetMapping("/{year}/{month}")
-    public ResponseEntity<SummaryResponse> summaryByMonth(@PathVariable("year") Long year, @PathVariable("month") Long month) {
-        return ResponseEntity.ok(summaryService.summaryByMonth(year, month));
+    public ResponseEntity<SummaryResponse> summaryByYearMonth(@PathVariable Long year, @PathVariable Long month) {
+        return ResponseEntity.ok(summaryService.summaryByYearMonth(year, month));
     }
 }

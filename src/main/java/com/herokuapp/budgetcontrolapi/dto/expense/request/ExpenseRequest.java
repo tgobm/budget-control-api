@@ -2,7 +2,6 @@ package com.herokuapp.budgetcontrolapi.dto.expense.request;
 
 import com.herokuapp.budgetcontrolapi.domain.expense.Category;
 import lombok.Data;
-import org.mapstruct.EnumMapping;
 
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
@@ -11,7 +10,6 @@ import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.time.LocalDate;
-import java.util.Date;
 
 @Data
 public class ExpenseRequest implements Serializable {

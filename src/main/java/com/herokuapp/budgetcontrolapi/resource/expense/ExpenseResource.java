@@ -33,28 +33,28 @@ public class ExpenseResource {
         return new ResponseEntity<>(expenseService.createExpense(request), HttpStatus.CREATED);
     }
 
-    @GetMapping
-    public ResponseEntity<List<ExpenseResponse>> getAllExpenseByDescription(@RequestParam("description") String description) {
-        return ResponseEntity.ok(expenseService.getAllExpenseByDescription(description));
-    }
-
     @GetMapping("/{id}")
-    public ResponseEntity<ExpenseResponse> getExpense(@PathVariable("id") Long id) {
+    public ResponseEntity<ExpenseResponse> getExpense(@PathVariable Long id) {
         return ResponseEntity.ok(expenseService.getExpense(id));
     }
 
+    @GetMapping
+    public ResponseEntity<List<ExpenseResponse>> getAllExpenseByDescription(@RequestParam String description) {
+        return ResponseEntity.ok(expenseService.getAllExpenseByDescription(description));
+    }
+
     @GetMapping("/{year}/{month}")
-    public ResponseEntity<List<ExpenseResponse>> getAllExpenseByYearMonth(@PathVariable("year") Long year, @PathVariable("month") Long month) {
+    public ResponseEntity<List<ExpenseResponse>> getAllExpenseByYearMonth(@PathVariable Long year, @PathVariable Long month) {
         return ResponseEntity.ok(expenseService.getAllExpenseByYearMonth(year, month));
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<ExpenseResponse> updateExpense(@Valid @RequestBody ExpenseRequest requestDetails, @PathVariable("id") Long id) {
+    public ResponseEntity<ExpenseResponse> updateExpense(@Valid @RequestBody ExpenseRequest requestDetails, @PathVariable Long id) {
         return ResponseEntity.ok(expenseService.updateExpense(requestDetails, id));
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deleteExpense(@PathVariable("id") Long id) {
+    public ResponseEntity<Void> deleteExpense(@PathVariable Long id) {
         expenseService.deleteExpense(id);
         return ResponseEntity.noContent().build();
     }

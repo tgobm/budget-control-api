@@ -7,13 +7,13 @@ import lombok.Getter;
 @AllArgsConstructor
 public enum Category {
 
-    FOOD("FOOD"),
-    HEALTH("HEALTH"),
-    HOME("HOME"),
-    TRANSPORT("TRANSPORT"),
-    EDUCATION("EDUCATION"),
-    LEISURE("LEISURE"),
-    UNFORESEEN("UNFORESEEN"),
+    FOOD("FOOD"), //
+    HEALTH("HEALTH"), //
+    HOME("HOME"), //
+    TRANSPORT("TRANSPORT"), //
+    EDUCATION("EDUCATION"), //
+    LEISURE("LEISURE"), //
+    UNFORESEEN("UNFORESEEN"), //
     OTHERS("OTHERS");
 
     private final String value;

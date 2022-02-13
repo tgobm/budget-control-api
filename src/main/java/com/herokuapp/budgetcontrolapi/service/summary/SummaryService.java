@@ -1,8 +1,8 @@
 package com.herokuapp.budgetcontrolapi.service.summary;
 
-import com.herokuapp.budgetcontrolapi.dto.summary.SummaryResponse;
+import com.herokuapp.budgetcontrolapi.dto.summary.response.SummaryResponse;
 
 public interface SummaryService {
 
-    SummaryResponse summaryByMonth(Long year, Long month);
+    SummaryResponse summaryByYearMonth(Long year, Long month);
 }

@@ -8,7 +8,6 @@ import com.herokuapp.budgetcontrolapi.exception.ResourceNotFoundException;
 import com.herokuapp.budgetcontrolapi.repository.revenue.RevenueRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-import org.springframework.validation.annotation.Validated;
 
 import javax.transaction.Transactional;
 import java.time.YearMonth;
@@ -29,7 +28,7 @@ public class RevenueServiceImpl implements RevenueService {
     private final RevenueRepository revenueRepository;
 
     @Override
-    public RevenueResponse createRevenue(@Validated RevenueRequest request) {
+    public RevenueResponse createRevenue(RevenueRequest request) {
         Revenue entity = revenueMapper.fromRequestToEntity(request);
         revenueRepository.save(entity);
         return revenueMapper.fromEntityToResponse(entity);
@@ -45,7 +44,7 @@ public class RevenueServiceImpl implements RevenueService {
     @Override
     public List<RevenueResponse> getAllRevenueByDescription(String description) {
         List<RevenueResponse> responseList = new ArrayList<>();
-        List<Revenue> entities = revenueRepository.findAll()//
+        List<Revenue> entities = revenueRepository.findAll() //
                 .stream() //
                 .filter(revenue -> Objects.equals(revenue.getDescription(), description)) //
                 .collect(Collectors.toList());
@@ -56,7 +55,7 @@ public class RevenueServiceImpl implements RevenueService {
     @Override
     public List<RevenueResponse> getAllRevenueByYearMonth(Long year, Long month) {
         List<RevenueResponse> responseList = new ArrayList<>();
-        List<Revenue> entities = revenueRepository.findAll()//
+        List<Revenue> entities = revenueRepository.findAll() //
                 .stream() //
                 .filter(revenue -> Objects.equals(YearMonth.from(revenue.getDate()), YearMonth.of(year.intValue(), month.intValue()))) //
                 .collect(Collectors.toList());
@@ -72,7 +71,6 @@ public class RevenueServiceImpl implements RevenueService {
         returnedEntity.setDescription(request.getDescription());
         returnedEntity.setValue(request.getValue());
         returnedEntity.setDate(request.getDate());
-
         revenueRepository.save(returnedEntity);
         return revenueMapper.fromEntityToResponse(returnedEntity);
     }

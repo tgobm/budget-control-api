@@ -43,7 +43,6 @@ public class RestExceptionHandler extends ResponseEntityExceptionHandler {
 
         Map<String, String> listFieldErrors = new HashMap<>();
         List<FieldError> fieldErrors = ex.getBindingResult().getFieldErrors();
-
         fieldErrors.forEach(error -> listFieldErrors.put(error.getField(), error.getDefaultMessage()));
 
         return new ResponseEntity<>(ValidationExceptionResponse.builder() //

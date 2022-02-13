@@ -1,4 +1,4 @@
-package com.herokuapp.budgetcontrolapi.dto.summary;
+package com.herokuapp.budgetcontrolapi.dto.summary.response;
 
 import com.herokuapp.budgetcontrolapi.domain.expense.Category;
 import lombok.Builder;

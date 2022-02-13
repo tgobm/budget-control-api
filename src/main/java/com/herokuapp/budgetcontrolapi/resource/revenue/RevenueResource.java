@@ -29,29 +29,32 @@ public class RevenueResource {
     private final RevenueService revenueService;
 
     @PostMapping
-    public ResponseEntity<RevenueResponse> createRevenue(@Valid @RequestBody RevenueRequest revenue) {
-        return new ResponseEntity<>(revenueService.createRevenue(revenue), HttpStatus.CREATED);
+    public ResponseEntity<RevenueResponse> createRevenue(@Valid @RequestBody RevenueRequest request) {
+        return new ResponseEntity<>(revenueService.createRevenue(request), HttpStatus.CREATED);
     }
 
-    @GetMapping()
+    @GetMapping("/{id}")
+    public ResponseEntity<RevenueResponse> getRevenue(@PathVariable Long id) {
+        return ResponseEntity.ok(revenueService.getRevenue(id));
+    }
+
+    @GetMapping
     public ResponseEntity<List<RevenueResponse>> getAllRevenueByDescription(@RequestParam String description) {
         return ResponseEntity.ok(revenueService.getAllRevenueByDescription(description));
     }
 
-    @GetMapping("/{id}")
-    public ResponseEntity<RevenueResponse> getRevenue(@PathVariable("id") Long id) {
-        return ResponseEntity.ok(revenueService.getRevenue(id));
+    @GetMapping("/{year}/{month}")
+    public ResponseEntity<List<RevenueResponse>> getAllRevenueByYearMonth(@PathVariable Long year, @PathVariable Long month) {
+        return ResponseEntity.ok(revenueService.getAllRevenueByYearMonth(year, month));
     }
 
-
-
-    @PutMapping("{id}")
-    public ResponseEntity<RevenueResponse> updateRevenue(@Valid @RequestBody RevenueRequest requestDetails, @PathVariable("id") Long id) {
+    @PutMapping("/{id}")
+    public ResponseEntity<RevenueResponse> updateRevenue(@Valid @RequestBody RevenueRequest requestDetails, @PathVariable Long id) {
         return ResponseEntity.ok(revenueService.updateRevenue(requestDetails, id));
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deleteExpense(@PathVariable("id") Long id) {
+    public ResponseEntity<Void> deleteRevenue(@PathVariable Long id) {
         revenueService.deleteRevenue(id);
         return ResponseEntity.noContent().build();
     }

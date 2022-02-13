@@ -30,10 +30,8 @@ public class ExpenseServiceImpl implements ExpenseService {
 
     @Override
     public ExpenseResponse createExpense(ExpenseRequest request) {
-
         Category category = Objects.isNull(request.getCategory()) ? Category.OTHERS : request.getCategory();
         request.setCategory(category);
-
         Expense entity = expenseMapper.fromRequestToEntity(request);
         expenseRepository.save(entity);
         return expenseMapper.fromEntityToResponse(entity);
@@ -49,11 +47,10 @@ public class ExpenseServiceImpl implements ExpenseService {
     @Override
     public List<ExpenseResponse> getAllExpenseByDescription(String description) {
         List<ExpenseResponse> responseList = new ArrayList<>();
-        List<Expense> entities = expenseRepository.findAll()//
+        List<Expense> entities = expenseRepository.findAll() //
                 .stream() //
                 .filter(expense -> Objects.equals(expense.getDescription(), description)) //
                 .collect(Collectors.toList());
-
         entities.forEach(entity -> responseList.add(expenseMapper.fromEntityToResponse(entity)));
         return responseList;
     }
@@ -63,9 +60,8 @@ public class ExpenseServiceImpl implements ExpenseService {
         List<ExpenseResponse> responseList = new ArrayList<>();
         List<Expense> entities = expenseRepository.findAll() //
                 .stream() //
-                .filter(expense -> Objects.equals(YearMonth.from(expense.getDate()), YearMonth.of(year.intValue(), month.intValue()))
-                ).collect(Collectors.toList());
-
+                .filter(expense -> Objects.equals(YearMonth.from(expense.getDate()), YearMonth.of(year.intValue(), month.intValue()))) //
+                .collect(Collectors.toList());
         entities.forEach(entity -> responseList.add(expenseMapper.fromEntityToResponse(entity)));
         return responseList;
     }
@@ -78,7 +74,6 @@ public class ExpenseServiceImpl implements ExpenseService {
         returnedEntity.setDescription(requestDetails.getDescription());
         returnedEntity.setValue(requestDetails.getValue());
         returnedEntity.setDate(requestDetails.getDate());
-
         expenseRepository.save(returnedEntity);
         return expenseMapper.fromEntityToResponse(returnedEntity);
     }
