@@ -8,8 +8,8 @@ import com.herokuapp.budgetcontrolapi.service.expense.ExpenseService;
 import com.herokuapp.budgetcontrolapi.service.revenue.RevenueService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
-import javax.transaction.Transactional;
 import java.math.BigDecimal;
 import java.util.List;
 import java.util.Map;
@@ -17,7 +17,7 @@ import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
-@Transactional(rollbackOn = Exception.class)
+@Transactional(rollbackFor = Exception.class)
 public class SummaryServiceImpl implements SummaryService {
 
     private final RevenueService revenueService;

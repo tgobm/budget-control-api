@@ -9,8 +9,8 @@ import com.herokuapp.budgetcontrolapi.exception.ResourceNotFoundException;
 import com.herokuapp.budgetcontrolapi.repository.expense.ExpenseRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
-import javax.transaction.Transactional;
 import java.time.YearMonth;
 import java.util.ArrayList;
 import java.util.List;
@@ -21,7 +21,7 @@ import static com.herokuapp.budgetcontrolapi.util.ErrorMessage.RESOURCE_NOT_FOUN
 
 @Service
 @RequiredArgsConstructor
-@Transactional(rollbackOn = Exception.class)
+@Transactional(rollbackFor = Exception.class)
 public class ExpenseServiceImpl implements ExpenseService {
 
     private final ExpenseMapper expenseMapper;
