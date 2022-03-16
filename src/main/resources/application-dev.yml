@@ -1,14 +1,14 @@
 spring:
   datasource:
-    url: jdbc:postgresql://ec2-54-208-139-247.compute-1.amazonaws.com:5432/d9jifq15g5cj1u
-    username: iwufelfymlzgau
-    password: 0b4b796c43926f48275d964c14446707dfba0a039bbccca070d45c8642f6c7d4
+    url: ${URL_DATABASE}
+    username: ${USER}
+    password: ${PASSWORD}
   jpa:
     hibernate:
-      ddl-auto: update
+      ddl-auto: none
     open-in-view: false
     properties:
       hibernate:
-        dialect: org.hibernate.dialect.PostgreSQLDialect
+        dialect: ${URL_DATABASE_DIALECT}
         format_sql: true
     show-sql: true
